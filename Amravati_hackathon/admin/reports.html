@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Reports - PREX - Premedix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Include navbar -->
+    <main class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="section-header">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="prex-avatar">
+                            <i class='bx bx-bot'></i>
+                        </div>
+                        <div>
+                            <h2>PREX - AI Analysis</h2>
+                            <p class="mb-0">AI-Powered Equipment Management Assistant</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Aging Analysis -->
+                <div class="card report-card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class='bx bx-time-five'></i>
+                            Equipment Aging Analysis
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <h6 class="alert-heading">Critical Assets Nearing End-of-Life (Next 6 Months)</h6>
+                            <ol class="mb-0">
+                                <li>Defibrillator Lifepak (DEFIB-2020-08) - 92% of expected lifespan</li>
+                                <li>MRI Cooling System (COOL-MRI-02) - 89% lifespan</li>
+                            </ol>
+                        </div>
+                        <div class="budget-recommendation mt-3">
+                            <span class="badge bg-primary">Recommendation</span>
+                            <p class="mb-0">Budget allocation needed: $185,000 for replacements</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Failure Prediction -->
+                <div class="card report-card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class='bx bx-error-circle'></i>
+                            Predictive Maintenance Alert
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="risk-assessment">
+                            <h6>High-Risk Equipment</h6>
+                            <div class="risk-items">
+                                <div class="risk-item">
+                                    <div class="risk-info">
+                                        <h6>Ventilator V60 (VENT-2022-045)</h6>
+                                        <p>73% chance of motor failure within 3 months</p>
+                                    </div>
+                                    <div class="risk-action">
+                                        <button class="btn btn-warning btn-sm">Schedule Service</button>
+                                    </div>
+                                </div>
+                                <div class="risk-item">
+                                    <div class="risk-info">
+                                        <h6>Ultrasound Machine US-450 (US-2019-022)</h6>
+                                        <p>68% chance of probe failure</p>
+                                    </div>
+                                    <div class="risk-action">
+                                        <button class="btn btn-warning btn-sm">Schedule Service</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consumables Analysis -->
+                <div class="card report-card">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class='bx bx-package'></i>
+                            Inventory Optimization
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="alert alert-info">
+                                    <h6>Overstock Alert</h6>
+                                    <p>Surgical Masks: 8 months supply</p>
+                                    <small>Recommendation: Reduce orders by 40%</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-danger">
+                                    <h6>Understock Risk</h6>
+                                    <p>Contrast Media: 12 days supply</p>
+                                    <small>Action Required: Reorder immediately</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-md-4">
+                <!-- Replacement Decision Matrix -->
+                <div class="card matrix-card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            <i class='bx bx-git-compare'></i>
+                            Replacement Decision Matrix
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="matrix-item">
+                            <div class="matrix-header">
+                                <span>MRI-2018-003</span>
+                                <span class="badge bg-warning">Review Needed</span>
+                            </div>
+                            <div class="matrix-details">
+                                <div class="detail-item">
+                                    <span>Age:</span>
+                                    <span>5.7 years</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>Repair Cost:</span>
+                                    <span>$28,000</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span>New Cost:</span>
+                                    <span>$1.2M</span>
+                                </div>
+                            </div>
+                            <div class="matrix-recommendation">
+                                <i class='bx bx-bulb'></i>
+                                <span>Recommendation: Overhaul & extend</span>
+                            </div>
+                        </div>
+                        <!-- Add more matrix items -->
+                    </div>
+                </div>
+
+                <!-- PREX Chat Interface -->
+                <div class="card prex-chat-card">
+                    <div class="card-header">
+                        <h5 class="card-title">Ask PREX</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chat-messages">
+                            <!-- Chat messages will appear here -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" class="form-control" placeholder="Ask about equipment or maintenance...">
+                            <button class="btn btn-primary">
+                                <i class='bx bx-send'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

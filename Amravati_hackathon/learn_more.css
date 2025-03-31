@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f9f4; /* Light green background */
+    color: #2f4f2f; /* Dark green text */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #2e8b57; /* Sea green */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-link {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #d4edda; /* Light green hover effect */
+}
+
+.main-container {
+    padding: 20px;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    color: #2e8b57; /* Sea green */
+    font-weight: bold;
+}
+
+.section-header .actions button {
+    margin-left: 10px;
+}
+
+/* Tables */
+.table {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: #2e8b57; /* Sea green */
+    color: #ffffff;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.card h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2e8b57; /* Sea green */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Blockquote */
+blockquote {
+    border-left: 5px solid #2e8b57; /* Sea green */
+    padding-left: 15px;
+    font-style: italic;
+    color: #2f4f2f; /* Dark green */
+}
+
+/* Footer */
+footer {
+    background-color: #2e8b57; /* Sea green */
+    color: #ffffff;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #2e8b57; /* Sea green */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #3cb371; /* Medium sea green */
+}
+
+/* Links */
+a {
+    color: #2e8b57; /* Sea green */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #3cb371; /* Medium sea green */
+}

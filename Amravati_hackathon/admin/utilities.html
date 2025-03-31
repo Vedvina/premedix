@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilities Management - Premedix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Include navbar -->
+    <main class="container mt-4">
+        <div class="section-header">
+            <h2><i class='bx bx-bulb'></i> Utilities Management</h2>
+            <div class="actions">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUtilityModal">
+                    <i class='bx bx-plus'></i> Add Utility
+                </button>
+                <button class="btn btn-outline-primary">
+                    <i class='bx bx-download'></i> Export Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Utility Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <i class='bx bx-check-circle stat-icon'></i>
+                        <span class="stat-label">Total Systems</span>
+                    </div>
+                    <div class="stat-card-body">
+                        <h3 class="stat-value">324</h3>
+                        <div class="trend-indicator trend-up">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span>98% Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more stat cards -->
+        </div>
+
+        <!-- Utility Categories -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="utility-card">
+                    <div class="utility-header">
+                        <i class='bx bx-bulb'></i>
+                        <h3>Lighting Systems</h3>
+                    </div>
+                    <div class="utility-body">
+                        <div class="utility-stat">
+                            <span class="stat-label">Total Units</span>
+                            <span class="stat-value">156</span>
+                        </div>
+                        <div class="utility-stat">
+                            <span class="stat-label">Power Consumption</span>
+                            <span class="stat-value">2.4 kW/h</span>
+                        </div>
+                        <div class="utility-status">
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" style="width: 95%">95% Operational</div>
+                            </div>
+                        </div>
+                        <div class="utility-actions mt-3">
+                            <button class="btn btn-sm btn-outline-primary">View Details</button>
+                            <button class="btn btn-sm btn-outline-warning">Schedule Service</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add HVAC and other utility cards -->
+        </div>
+
+        <!-- Utility Table -->
+        <div class="card table-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Utility ID</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Installed Date</th>
+                                <th>Last Service</th>
+                                <th>Next Service Due</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LGT-5F-112</td>
+                                <td>LED Panel</td>
+                                <td>Ward 5F</td>
+                                <td>2022-08-10</td>
+                                <td>2023-09-12</td>
+                                <td>2024-03-12</td>
+                                <td><span class="status status-warning">2 of 8 flickering</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-icon" data-tooltip="Edit">
+                                            <i class='bx bx-edit'></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon" data-tooltip="Service History">
+                                            <i class='bx bx-history'></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon" data-tooltip="More">
+                                            <i class='bx bx-dots-vertical'></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Add more utility rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premedix - Maintenance Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b7a78;
+            --secondary: #3aafa9;
+            --light: #def2f1;
+            --dark: #17252a;
+            --warning: #fe5f55;
+            --success: #4caf50;
+            --info: #2196f3;
+            --critical: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--dark);
+            color: white;
+            padding: 1.5rem 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background-color: #fff3e0;
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-banner.critical {
+            background-color: #ffebee;
+            border-left-color: var(--critical);
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+            color: var(--warning);
+        }
+
+        .alert-icon.critical {
+            color: var(--critical);
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: var(--dark);
+        }
+
+        /* Work Orders Card */
+        .work-orders-card {
+            grid-column: span 8;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f9f9f9;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .priority-high {
+            color: var(--critical);
+            font-weight: bold;
+        }
+
+        .priority-medium {
+            color: var(--warning);
+        }
+
+        .priority-low {
+            color: var(--success);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-due {
+            background-color: #fff8e1;
+            color: #ff8f00;
+        }
+
+        .status-ontrack {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-overdue {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        /* Equipment Health Card */
+        .equipment-health-card {
+            grid-column: span 4;
+        }
+
+        .health-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric-card {
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .metric-high {
+            color: var(--critical);
+        }
+
+        .metric-medium {
+            color: var(--warning);
+        }
+
+        .metric-good {
+            color: var(--success);
+        }
+
+        /* Maintenance Calendar Card */
+        .calendar-card {
+            grid-column: span 4;
+        }
+
+        .calendar {
+            margin-top: 1rem;
+        }
+
+        .calendar-day {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .calendar-date {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        .calendar-event {
+            flex: 1;
+        }
+
+        .event-critical {
+            border-left: 3px solid var(--critical);
+            padding-left: 0.5rem;
+        }
+
+        .event-warning {
+            border-left: 3px solid var(--warning);
+            padding-left: 0.5rem;
+        }
+
+        /* Parts Inventory Card */
+        .inventory-card {
+            grid-column: span 4;
+        }
+
+        .inventory-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .inventory-alert {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        /* Technician Performance Card */
+        .performance-card {
+            grid-column: span 4;
+        }
+
+        .tech-card {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tech-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .tech-metrics {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .tech-rating {
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        /* Quick Actions Card */
+        .quick-actions-card {
+            grid-column: span 12;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: var(--light);
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .work-orders-card {
+                grid-column: span 12;
+            }
+            .equipment-health-card {
+                grid-column: span 6;
+            }
+            .calendar-card {
+                grid-column: span 6;
+            }
+            .inventory-card {
+                grid-column: span 6;
+            }
+            .performance-card {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .equipment-health-card,
+            .calendar-card,
+            .inventory-card,
+            .performance-card {
+                grid-column: span 12;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-hospital-alt"></i>
+                <span>Premedix</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cogs"></i>
+                        <span>Work Orders</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Preventive Maintenance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-warehouse"></i>
+                        <span>Inventory</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="page-title">Maintenance Dashboard</h1>
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <span>John Doe</span>
+                </div>
+            </div>
+
+            <!-- Alert Banner -->
+            <div class="alert-banner critical">
+                <i class="fas fa-exclamation-triangle alert-icon critical"></i>
+                <div class="alert-content">
+                    <div class="alert-title">3 CRITICAL ISSUES REQUIRING IMMEDIATE ATTENTION</div>
+                    <div>MRI Coolant Leak (Room 4B) • Ventilator Failure (ICU-2) • Defibrillator Battery Fault (ER-3)</div>
+                </div>
+                <button class="btn btn-primary">View All</button>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Work Orders Card -->
+                <div class="card work-orders-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Active Work Orders</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Export</button>
+                            <button class="btn btn-primary">+ New Order</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Equipment</th>
+                                    <th>Issue Type</th>
+                                    <th>Priority</th>
+                                    <th>Days Open</th>
+                                    <th>Assigned To</th>
+                                    <th>SLA Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#MT-2045</td>
+                                    <td>MRI Coolant System</td>
+                                    <td>Leak Detection</td>
+                                    <td class="priority-high">High</td>
+                                    <td>1</td>
+                                    <td>John D.</td>
+                                    <td><span class="status-badge status-due">Due in 2h</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#MT-2042</td>
+                                    <td>Ventilator V60</td>
+                                    <td>Sensor Calibration</td>
+                                    <td class="priority-medium">Medium</td>
+                                    <td>3</td>
+                                    <td>Sarah M.</td>
+                                    <td><span class="status-badge status-ontrack">On Track</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#MT-2038</td>
+                                    <td>Ultrasound Probe</td>
+                                    <td>Image Artifacts</td>
+                                    <td class="priority-low">Low</td>
+                                    <td>5</td>
+                                    <td>Unassigned</td>
+                                    <td><span class="status-badge status-overdue">Overdue</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#MT-2035</td>
+                                    <td>X-Ray Generator</td>
+                                    <td>Power Fluctuations</td>
+                                    <td class="priority-high">High</td>
+                                    <td>2</td>
+                                    <td>Mike T.</td>
+                                    <td><span class="status-badge status-due">Due in 5h</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#MT-2031</td>
+                                    <td>Anesthesia Machine</td>
+                                    <td>Gas Flow Issue</td>
+                                    <td class="priority-medium">Medium</td>
+                                    <td>4</td>
+                                    <td>Lisa P.</td>
+                                    <td><span class="status-badge status-ontrack">On Track</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Equipment Health Card -->
+                <div class="card equipment-health-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Equipment Health Metrics</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Details</button>
+                        </div>
+                    </div>
+                    <div class="health-metrics">
+                        <div class="metric-card">
+                            <div>Uptime Percentage</div>
+                            <div class="metric-value metric-good">98.7%</div>
+                            <div>Target: 99.5%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div>MTTR (Hours)</div>
+                            <div class="metric-value metric-good">4.2</div>
+                            <div>Industry Avg: 6.1</div>
+                        </div>
+                        <div class="metric-card">
+                            <div>High Risk Equipment</div>
+                            <div class="metric-value metric-high">8</div>
+                            <div>Needs Immediate Attention</div>
+                        </div>
+                        <div class="metric-card">
+                            <div>Preventive Tasks</div>
+                            <div class="metric-value metric-medium">14</div>
+                            <div>Due This Week</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3 style="font-size: 0.9rem; color: var(--dark); margin-bottom: 0.5rem;">AI Risk Prediction</h3>
+                        <div style="background-color: #f5f5f5; border-radius: 6px; padding: 0.75rem; font-size: 0.9rem;">
+                            <strong>Defibrillator #45:</strong> 87/100 risk score<br>
+                            <strong>Ventilator V60:</strong> 73% failure probability
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance Calendar Card -->
+                <div class="card calendar-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Preventive Maintenance Calendar</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">View All</button>
+                        </div>
+                    </div>
+                    <div class="calendar">
+                        <div class="calendar-day">
+                            <div class="calendar-date">15</div>
+                            <div class="calendar-event event-critical">
+                                <strong>CT Scanner PM</strong>
+                                <div style="font-size: 0.8rem; color: #666;">Radiology - Due Today</div>
+                            </div>
+                        </div>
+                        <div class="calendar-day">
+                            <div class="calendar-date">18</div>
+                            <div class="calendar-event event-warning">
+                                <strong>HVAC Filter Replacement</strong>
+                                <div style="font-size: 0.8rem; color: #666;">Main OR - Due in 3 days</div>
+                            </div>
+                        </div>
+                        <div class="calendar-day">
+                            <div class="calendar-date">20</div>
+                            <div class="calendar-event">
+                                <strong>Ventilator Calibration</strong>
+                                <div style="font-size: 0.8rem; color: #666;">ICU - 5 units</div>
+                            </div>
+                        </div>
+                        <div class="calendar-day">
+                            <div class="calendar-date">22</div>
+                            <div class="calendar-event event-warning">
+                                <strong>Anesthesia Machine Check</strong>
+                                <div style="font-size: 0.8rem; color: #666;">OR-3 - Due in 7 days</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parts Inventory Card -->
+<div class="card inventory-card">
+    <div class="card-header">
+        <h2 class="card-title">
+            <i class="fas fa-boxes"></i> Parts Inventory Tracker
+            
+        </h2>
+        <div class="card-actions">
+            <!-- <div class="dropdown">
+                <button class="btn btn-outline dropdown-toggle" type="button">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item active" href="#">All Items</a>
+                    <a class="dropdown-item" href="#">Critical Low</a>
+                    <a class="dropdown-item" href="#">Low Stock</a>
+                    <a class="dropdown-item" href="#">Expiring Soon</a>
+                    <a class="dropdown-item" href="#">By Department</a>
+                </div>
+            </div> -->
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addItemModal">
+                <i class="fas fa-plus"></i> Add Item
+            </button>
+        </div>
+    </div>
+    
+    <!-- Inventory Controls -->
+    <div class="inventory-controls">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search parts by name, ID or location...">
+        </div>
+        <div class="view-options">
+            <button class="view-option active" title="Table View">
+                <i class="fas fa-table"></i>
+            </button>
+            <button class="view-option" title="Grid View">
+                <i class="fas fa-th-large"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Inventory Status Summary -->
+    <div class="inventory-summary">
+        <div class="summary-item critical">
+            <div class="summary-count">5</div>
+            <div class="summary-label">Critical Low</div>
+        </div>
+        <div class="summary-item warning">
+            <div class="summary-count">12</div>
+            <div class="summary-label">Low Stock</div>
+        </div>
+        <div class="summary-item expiring">
+            <div class="summary-count">8</div>
+            <div class="summary-label">Expiring Soon</div>
+        </div>
+    
+    </div>
+    
+    <!-- Inventory Table -->
+    <div class="table-responsive">
+        <table class="inventory-table">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name">
+                        Part Name <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable" data-sort="location">
+                        Location <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable" data-sort="stock">
+                        Current Stock <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable" data-sort="status">
+                        Status <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Critical Item -->
+                <tr class="critical">
+                    <td>
+                        <div class="item-info">
+                            <div class="item-icon">
+                                <i class="fas fa-radiation-alt"></i>
+                            </div>
+                            <div class="item-details">
+                                <strong>MRI Cryogen</strong>
+                                <span>Part #CRYO-HE4-001 | Radiology</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Storage Room 4B</td>
+                    <td>
+                        <div class="stock-level">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                            <span>12L / 20L min</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge critical">
+                            <i class="fas fa-exclamation-circle"></i> Critical Low
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon" title="Quick Reorder">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn-icon" title="Edit Item">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon" title="View History">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Warning Item -->
+                <tr class="warning">
+                    <td>
+                        <div class="item-info">
+                            <div class="item-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="item-details">
+                                <strong>Ventilator Filters</strong>
+                                <span>Part #VENT-FIL-202 | ICU</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ICU Supply Closet</td>
+                    <td>
+                        <div class="stock-level">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span>3 / 5 min</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge warning">
+                            <i class="fas fa-exclamation-triangle"></i> Low Stock
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon" title="Quick Reorder">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn-icon" title="Edit Item">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon" title="View History">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Expiring Item -->
+                <tr class="expiring">
+                    <td>
+                        <div class="item-info">
+                            <div class="item-icon">
+                                <i class="fas fa-syringe"></i>
+                            </div>
+                            <div class="item-details">
+                                <strong>Contrast Media</strong>
+                                <span>Part #CON-MED-100 | Radiology</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Radiology Storage</td>
+                    <td>
+                        <div class="stock-level">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <span>15 vials</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge expiring">
+                            <i class="fas fa-clock"></i> Expires in 15 days
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon" title="Quick Reorder">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn-icon" title="Edit Item">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon" title="View History">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Normal Item -->
+                <tr>
+                    <td>
+                        <div class="item-info">
+                            <div class="item-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="item-details">
+                                <strong>Defibrillator Pads</strong>
+                                <span>Part #DEFIB-PAD-A9 | ER</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Emergency Room Cart</td>
+                    <td>
+                        <div class="stock-level">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <span>24 pairs</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge success">
+                            <i class="fas fa-check-circle"></i> Adequate
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon" title="Quick Reorder">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="btn-icon" title="Edit Item">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon" title="View History">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Inventory Footer -->
+    <div class="inventory-footer">
+        
+        <div class="pagination">
+            <button class="page-btn disabled">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            
+            <span class="ellipsis">..</span>
+            <button class="page-btn">5</button>
+            <button class="page-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #1a73e8;  /* Google blue */
+        --primary-light: #e8f0fe;
+        --primary-dark: #0d47a1;
+        --secondary: #4285f4;  /* Lighter blue */
+        --accent: #34a853;    /* Google green for success */
+        --warning: #fbbc05;   /* Google yellow */
+        --critical: #ea4335;  /* Google red */
+        --text-dark: #202124;
+        --text-medium: #5f6368;
+        --text-light: #ffffff;
+        --bg-light: #f8f9fa;
+        --border-light: #dadce0;
+    }
+
+    /* Enhanced Inventory Card Styles */
+    .inventory-card {
+        position: relative;
+        padding-bottom: 10px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(60,64,67,0.1), 0 2px 6px rgba(60,64,67,0.15);
+        border: none;
+    }
+    
+    .card-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+        background-color: white;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .card-header .badge {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 16px;
+        font-size: 0.75rem;
+        margin-left: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .card-title {
+        color: var(--text-dark);
+        font-size: 1.25rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    
+    .card-title i {
+        color: var(--primary);
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+    }
+    
+    /* Dropdown Styles */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        margin-right: 0.75rem;
+    }
+    
+    .dropdown-toggle {
+        background-color: white;
+        border: 1px solid var(--border-light);
+        color: var(--text-medium);
+    }
+    
+    .dropdown-toggle:hover {
+        background-color: var(--bg-light);
+    }
+    
+    .dropdown-toggle::after {
+        content: "▾";
+        margin-left: 0.5rem;
+        color: var(--text-medium);
+    }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 180px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-radius: 8px;
+        z-index: 100;
+        padding: 0.5rem 0;
+        border: 1px solid var(--border-light);
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-item {
+        display: block;
+        padding: 0.625rem 1.25rem;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+    }
+    
+    .dropdown-item:hover {
+        background-color: var(--primary-light);
+        color: var(--primary);
+    }
+    
+    .dropdown-item.active {
+        color: var(--primary);
+        font-weight: 500;
+        background-color: var(--primary-light);
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 0.625rem 1.25rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-outline {
+        background-color: white;
+        border-color: var(--border-light);
+        color: var(--text-medium);
+    }
+    
+    .btn-outline:hover {
+        background-color: var(--bg-light);
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+    
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    /* Inventory Controls */
+    .inventory-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background-color: var(--bg-light);
+        border-bottom: 1px solid var(--border-light);
+    }
+    
+    .search-bar {
+        position: relative;
+        width: 60%;
+    }
+    
+    .search-bar i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-medium);
+        font-size: 0.95rem;
+    }
+    
+    .search-bar input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.75rem;
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+    }
+    
+    .search-bar input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-light);
+        outline: none;
+    }
+    
+    .view-options {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .view-option {
+        background: white;
+        border: 1px solid var(--border-light);
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-medium);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .view-option:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+    
+    .view-option.active {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    
+    /* Inventory Summary */
+    .inventory-summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+        padding: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    
+    .summary-item {
+        padding: 1.25rem;
+        border-radius: 8px;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    
+    .summary-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .summary-item.critical {
+        border-top: 4px solid var(--critical);
+    }
+    
+    .summary-item.warning {
+        border-top: 4px solid var(--warning);
+    }
+    
+    .summary-item.expiring {
+        border-top: 4px solid #f37e20; /* Orange */
+    }
+    
+    .summary-item.success {
+        border-top: 4px solid var(--accent);
+    }
+    
+    .summary-count {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+    
+    .summary-item.critical .summary-count {
+        color: var(--critical);
+    }
+    
+    .summary-item.warning .summary-count {
+        color: var(--warning);
+    }
+    
+    .summary-item.expiring .summary-count {
+        color: #f37e20;
+    }
+    
+    .summary-item.success .summary-count {
+        color: var(--accent);
+    }
+    
+    .summary-label {
+        font-size: 0.875rem;
+        color: var(--text-medium);
+        font-weight: 500;
+    }
+    
+    /* Enhanced Table Styles */
+    .table-responsive {
+        padding: 0 1.5rem;
+    }
+    
+    .inventory-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 0.875rem;
+    }
+    
+    .inventory-table th {
+        background-color: var(--primary-light);
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: var(--primary);
+        position: sticky;
+        top: 0;
+    }
+    
+    .inventory-table td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-light);
+        vertical-align: middle;
+        color: var(--text-dark);
+    }
+    
+    .inventory-table tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .inventory-table tr.critical {
+        background-color: #fef0ef;
+    }
+    
+    .inventory-table tr.warning {
+        background-color: #fff8e8;
+    }
+    
+    .inventory-table tr.expiring {
+        background-color: #fff3e8;
+    }
+    
+    .inventory-table tr:hover {
+        background-color: var(--primary-light);
+    }
+    
+    .sortable {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        padding-right: 1.5rem !important;
+    }
+    
+    .sortable:hover {
+        color: var(--primary-dark);
+    }
+    
+    .sortable i {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        color: var(--primary);
+        opacity: 0.7;
+    }
+    
+    .sortable:hover i {
+        opacity: 1;
+    }
+    
+    /* Item Info Cells */
+    .item-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .item-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    
+    .critical .item-icon {
+        background-color: #fef0ef;
+        color: var(--critical);
+    }
+    
+    .warning .item-icon {
+        background-color: #fff8e8;
+        color: var(--warning);
+    }
+    
+    .expiring .item-icon {
+        background-color: #fff3e8;
+        color: #f37e20;
+    }
+    
+    .item-details {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .item-details strong {
+        font-weight: 500;
+        color: var(--text-dark);
+    }
+    
+    .item-details span {
+        font-size: 0.75rem;
+        color: var(--text-medium);
+        margin-top: 0.25rem;
+    }
+    
+    /* Stock Level Indicators */
+    .stock-level {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .progress-bar {
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        background-color: var(--primary);
+        border-radius: 4px;
+    }
+    
+    .critical .progress-fill {
+        background-color: var(--critical);
+    }
+    
+    .warning .progress-fill {
+        background-color: var(--warning);
+    }
+    
+    .expiring .progress-fill {
+        background-color: #f37e20;
+    }
+    
+    .stock-level span {
+        font-size: 0.8125rem;
+        color: var(--text-medium);
+    }
+    
+    /* Status Badges */
+    .status-badge {
+        padding: 0.5rem 0.875rem;
+        border-radius: 20px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+    
+    .status-badge i {
+        font-size: 0.9rem;
+    }
+    
+    .status-badge.critical {
+        background-color: #fef0ef;
+        color: var(--critical);
+    }
+    
+    .status-badge.warning {
+        background-color: #fff8e8;
+        color: var(--warning);
+    }
+    
+    .status-badge.expiring {
+        background-color: #fff3e8;
+        color: #f37e20;
+    }
+    
+    .status-badge.success {
+        background-color: #e6f4ea;
+        color: var(--accent);
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .btn-icon {
+        width: 34px;
+        height: 34px;
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        color: var(--text-medium);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    
+    .btn-icon:hover {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    
+    /* Inventory Footer */
+    .inventory-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid var(--border-light);
+        background-color: white;
+        border-radius: 0 0 8px 8px;
+    }
+    
+    .showing-entries {
+        font-size: 0.8125rem;
+        color: var(--text-medium);
+    }
+    
+    .pagination {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .page-btn {
+        width: 34px;
+        height: 34px;
+        background: white;
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    
+    .page-btn:hover:not(.active):not(.disabled) {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+    
+    .page-btn.active {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    
+    .page-btn.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    .ellipsis {
+        display: flex;
+        align-items: center;
+        padding: 0 0.5rem;
+        color: var(--text-medium);
+    }
+</style>

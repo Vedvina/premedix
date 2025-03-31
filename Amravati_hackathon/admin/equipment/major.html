@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same header content -->
+</head>
+<body>
+    <!-- Same navbar -->
+    <main class="container mt-4">
+        <div class="section-header">
+            <h2><i class='bx bx-plus-medical'></i> Major Equipment Management</h2>
+            <div class="actions">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">
+                    <i class='bx bx-plus'></i> Add Equipment
+                </button>
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary">
+                        <i class='bx bx-filter-alt'></i> Filter
+                    </button>
+                    <button class="btn btn-outline-primary">
+                        <i class='bx bx-export'></i> Export
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equipment Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <i class='bx bx-check-circle stat-icon'></i>
+                        <span class="stat-label">Active Equipment</span>
+                    </div>
+                    <div class="stat-card-body">
+                        <h3 class="stat-value">142</h3>
+                        <div class="trend-indicator trend-up">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span>+3 this month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card warning">
+                    <div class="stat-card-header">
+                        <i class='bx bx-time-five stat-icon'></i>
+                        <span class="stat-label">Warranty Expiring</span>
+                    </div>
+                    <div class="stat-card-body">
+                        <h3 class="stat-value">8</h3>
+                        <div class="trend-indicator trend-up">
+                            <i class='bx bx-up-arrow-alt'></i>
+                            <span>Next 30 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more stat cards -->
+        </div>
+
+        <!-- Equipment Table -->
+        <div class="card table-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Equipment ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Manufacturer</th>
+                                <th>Purchase Date</th>
+                                <th>Warranty Until</th>
+                                <th>Last Maintenance</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CT-2021-001</td>
+                                <td>CT Scanner 64-Slice</td>
+                                <td>Diagnostic</td>
+                                <td>Siemens</td>
+                                <td>2021-03-15</td>
+                                <td>2024-03-15</td>
+                                <td>2023-11-20</td>
+                                <td><span class="status status-active">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-icon" data-tooltip="View Details">
+                                            <i class='bx bx-info-circle'></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon" data-tooltip="Maintenance History">
+                                            <i class='bx bx-history'></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon" data-tooltip="More">
+                                            <i class='bx bx-dots-vertical'></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Add more equipment rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Equipment Modal -->
+        <div class="modal fade" id="addEquipmentModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Equipment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addEquipmentForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Equipment Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Category</option>
+                                        <option>Diagnostic</option>
+                                        <option>Therapeutic</option>
+                                        <option>Surgical</option>
+                                        <option>Monitoring</option>
+                                    </select>
+                                </div>
+                                <!-- Add more form fields -->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" form="addEquipmentForm" class="btn btn-primary">Add Equipment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 
