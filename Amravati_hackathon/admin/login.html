@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Premedix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .admin-login-container {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .admin-login-box {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+        }
+        .admin-login-logo {
+            width: 120px;
+            margin-bottom: 1.5rem;
+        }
+        .admin-login-header {
+            margin-bottom: 2rem;
+        }
+        .admin-login-header h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .admin-login-header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #81c784;
+            box-shadow: 0 0 0 0.25rem rgba(129, 199, 132, 0.15);
+        }
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            background-color: #81c784;
+            border-color: #81c784;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(129, 199, 132, 0.3);
+            background-color: #66bb6a;
+            border-color: #66bb6a;
+        }
+        .back-to-login {
+            color: #6c757d;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .back-to-login:hover {
+            color: #81c784;
+        }
+        .form-check-input:checked {
+            background-color: #81c784;
+            border-color: #81c784;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-box">
+            <div class="text-center admin-login-header">
+                <img src="../assets/images/premedix-logo.png" alt="Premedix Logo" class="admin-login-logo">
+                <h2>Admin Portal</h2>
+                <p>Access administrative controls and management features</p>
+            </div>
+            
+            <form id="adminLoginForm" class="login-form">
+                <div class="mb-4">
+                    <label class="form-label">Admin ID</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class='bx bx-user'></i>
+                        </span>
+                        <input type="text" class="form-control" id="adminId" required placeholder="Enter your admin ID">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class='bx bx-lock-alt'></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" required placeholder="Enter your password">
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <i class='bx bx-show'></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class='bx bx-log-in'></i> Login
+                    </button>
+                    <a href="../pages/login.html" class="back-to-login">
+                        <i class='bx bx-arrow-back'></i> Back to Login Options
+                    </a>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="text-muted">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bx-show');
+                icon.classList.add('bx-hide');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bx-hide');
+                icon.classList.add('bx-show');
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const adminId = document.getElementById('adminId').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Here you would typically make an API call to verify credentials
+            // For demo purposes, we'll just redirect to the admin dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html> 

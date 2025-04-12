@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "G:/My Drive/Amravati_hackathon"
+		},
+		{
+			"path": "../admin"
+		},
+		{
+			"path": "../assets"
+		},
+		{
+			"path": "../common"
+		},
+		{
+			"path": "../department"
+		},
+		{
+			"path": "../pages"
+		},
+		{
+			"path": "../scripts"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Amravati_hackathon"
+	}
+}

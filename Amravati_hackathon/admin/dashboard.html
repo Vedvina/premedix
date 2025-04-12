@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Premedix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: #2c3e50;
+            color: white;
+            padding-top: 1rem;
+        }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+        .sidebar .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.2);
+        }
+        .sidebar .nav-link i {
+            font-size: 1.2rem;
+        }
+        .main-content {
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card {
+            border-left: 4px solid #2ecc71;
+        }
+        .stat-card.primary {
+            border-left-color: #3498db;
+        }
+        .stat-card.warning {
+            border-left-color: #f1c40f;
+        }
+        .stat-card.danger {
+            border-left-color: #e74c3c;
+        }
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .user-profile {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 sidebar">
+                <div class="text-center mb-4">
+                    <img src="../assets/images/premedix-logo.png" alt="Premedix Logo" height="40">
+                    <h5 class="mt-2">Admin Panel</h5>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class='bx bxs-dashboard'></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class='bx bx-building-house'></i> Departments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class='bx bx-blood'></i> Blood Bank
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class='bx bx-wrench'></i> Equipment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class='bx bx-user'></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class='bx bx-cog'></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <i class='bx bx-log-out'></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg mb-4">
+                    <div class="container-fluid">
+                        <h4 class="mb-0">Dashboard Overview</h4>
+                        <div class="user-profile dropdown">
+                            <button class="btn btn-link dropdown-toggle text-dark" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class='bx bx-user-circle'></i> Admin User
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Quick Stats -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card p-4">
+                            <h6 class="text-muted">Total Departments</h6>
+                            <h3 class="mb-0">12</h3>
+                            <small class="text-success">+2 this month</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card primary p-4">
+                            <h6 class="text-muted">Blood Bank Status</h6>
+                            <h3 class="mb-0">85%</h3>
+                            <small class="text-primary">Good stock level</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card warning p-4">
+                            <h6 class="text-muted">Equipment Status</h6>
+                            <h3 class="mb-0">92%</h3>
+                            <small class="text-warning">3 pending repairs</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-card stat-card danger p-4">
+                            <h6 class="text-muted">System Alerts</h6>
+                            <h3 class="mb-0">3</h3>
+                            <small class="text-danger">Requires attention</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Features -->
+                <div class="row g-4">
+                    <!-- Department Management -->
+                    <div class="col-md-6">
+                        <div class="dashboard-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Department Management</h5>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class='bx bx-plus'></i> Add Department
+                                </button>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Cardiology</h6>
+                                            <small class="text-muted">25 staff members</small>
+                                        </div>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Neurology</h6>
+                                            <small class="text-muted">18 staff members</small>
+                                        </div>
+                                        <span class="badge bg-success">Active</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blood Bank Status -->
+                    <div class="col-md-6">
+                        <div class="dashboard-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Blood Bank Status</h5>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class='bx bx-plus'></i> Add Stock
+                                </button>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <!-- 24-Hour Storage -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">24-Hour Storage</h6>
+                                            <small class="text-muted">Fresh Blood Units</small>
+                                        </div>
+                                        <span class="badge bg-info">12 units</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-info" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Plasma Storage (42 Days) -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Plasma Storage (42 Days)</h6>
+                                            <small class="text-muted">Plasma Units</small>
+                                        </div>
+                                        <span class="badge bg-success">25 units</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Frozen Blood -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Frozen Blood</h6>
+                                            <small class="text-muted">Long-term Storage</small>
+                                        </div>
+                                        <span class="badge bg-warning">8 units</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-warning" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Blood Group Summary -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Blood Group Summary</h6>
+                                            <small class="text-muted">Total Available Units</small>
+                                        </div>
+                                        <span class="badge bg-primary">45 units</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-primary" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical Equipment Maintenance -->
+                    <div class="col-md-6">
+                        <div class="dashboard-card p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0">Equipment Maintenance</h5>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class='bx bx-plus'></i> Add Equipment
+                                </button>
+                            </div>
+                            <div class="list-group list-group-flush">
+                                <!-- MRI Scanner -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">MRI Scanner</h6>
+                                            <small class="text-muted">Radiology Department</small>
+                                        </div>
+                                        <span class="badge bg-warning">Maintenance Due</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>Next Maintenance: 15 days</small>
+                                            <small>Last Service: 2 months ago</small>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#repairModal">
+                                                <i class='bx bx-wrench'></i> Repair
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#replaceModal">
+                                                <i class='bx bx-refresh'></i> Replace
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- X-Ray Machine -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">X-Ray Machine</h6>
+                                            <small class="text-muted">Emergency Department</small>
+                                        </div>
+                                        <span class="badge bg-success">Operational</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>Next Maintenance: 45 days</small>
+                                            <small>Last Service: 1 month ago</small>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#repairModal">
+                                                <i class='bx bx-wrench'></i> Repair
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#replaceModal">
+                                                <i class='bx bx-refresh'></i> Replace
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ventilator -->
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Ventilator</h6>
+                                            <small class="text-muted">ICU Department</small>
+                                        </div>
+                                        <span class="badge bg-danger">Repair Required</span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>Next Maintenance: Overdue</small>
+                                            <small>Last Service: 3 months ago</small>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#repairModal">
+                                                <i class='bx bx-wrench'></i> Repair
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#replaceModal">
+                                                <i class='bx bx-refresh'></i> Replace
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="col-12">
+                        <div class="dashboard-card p-4">
+                            <h5 class="mb-4">Recent Activities</h5>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">New Department Added</h6>
+                                            <small class="text-muted">Pediatrics department created</small>
+                                        </div>
+                                        <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">Blood Stock Updated</h6>
+                                            <small class="text-muted">A+ blood group stock replenished</small>
+                                        </div>
+                                        <small class="text-muted">4 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">New User Registration</h6>
+                                            <small class="text-muted">5 new staff members registered</small>
+                                        </div>
+                                        <small class="text-muted">6 hours ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add any dashboard-specific JavaScript here
+    </script>
+</body>
+</html> 

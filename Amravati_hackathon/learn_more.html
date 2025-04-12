@@ -1,0 +1,169 @@
+<!-- //this is the ui page of a website named premedix
+//the website stores the information about medical equipment of the hospital
+//it also stores the information about the utilities such as lights,fans and injection syringe 
+//what it does: keeps the record of when the equipment was bought its probable expiration date and gets updated everytime there is a defualt within the equipment with the help of admin portal then the equipmentgoes int the replace or reject list and further decision is made by the board members 
+//it uses ai to generate report about the equipment conditions -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More About Premedix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="learn_more.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/images/premedix-logo.png" alt="Premedix Logo" class="logo">
+                PREMEDIX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="main.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="learn_more.html">Learn More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <section class="mb-5">
+            <h1 class="text-center">Learn More About Premedix</h1>
+            <p class="lead text-center">Smart Medical Equipment Lifecycle Management</p>
+        </section>
+
+        <section class="mb-5">
+            <h2>Why Premedix?</h2>
+            <p>Hospitals lose $12B annually due to poor equipment management (WHO). Premedix solves this with:</p>
+            <ul>
+                <li>30% reduction in emergency equipment failures</li>
+                <li>25% cost savings via predictive maintenance</li>
+                <li>100% compliance with audit trails</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2>Core Features</h2>
+            <h3>1. Intelligent Inventory Tracking</h3>
+            <p><strong>How it works:</strong></p>
+            <ul>
+                <li>Automated expiry alerts for medications/consumables</li>
+                <li>Barcode/RFID scanning for instant equipment lookup</li>
+                <li>Real-time location mapping (e.g., "Defibrillator 3A last used in ER 2hrs ago")</li>
+            </ul>
+            <blockquote class="blockquote">
+                <p>"Premedix alerted staff 3 months before our MRI cooling system warranty expired, saving $320K in potential repair costs."</p>
+                <footer class="blockquote-footer">Dr. Chen, Massachusetts General Hospital</footer>
+            </blockquote>
+
+            <h3>2. AI-Powered Predictive Maintenance</h3>
+            <p>Our AI analyzes:</p>
+            <ul>
+                <li>Equipment age vs. manufacturer lifespan</li>
+                <li>Usage patterns (high-load vs. idle equipment)</li>
+                <li>Historical failure data from 5,000+ hospitals</li>
+            </ul>
+            <pre class="bg-light p-3">
+[CRITICAL ALERT] CT Scanner Model XT-540 (ID: CT-2022-015)
+• 89% probability of gantry motor failure within 60 days
+• Recommended action: Schedule maintenance before Feb 15
+• Cost comparison:
+   - Repair now: $4,200
+   - Post-failure repair: $18,000 + 5 days downtime
+            </pre>
+
+            <h3>3. Decision Support for Replacements</h3>
+            <p>Automated evaluation criteria:</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Factor</th>
+                        <th>Weight</th>
+                        <th>Example Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Repair cost vs. new</td>
+                        <td>30%</td>
+                        <td>Repair=$8K vs New=$65K</td>
+                    </tr>
+                    <tr>
+                        <td>Patient safety risk</td>
+                        <td>25%</</td>
+                        <td>Critical care equipment</td>
+                    </tr>
+                    <tr>
+                        <td>Regulatory compliance</td>
+                        <td>20%</td>
+                        <td>FDA recertification needed</td>
+                    </tr>
+                    <tr>
+                        <td>Downtime impact</td>
+                        <td>15%</td>
+                        <td>14 days lead time</td>
+                    </tr>
+                    <tr>
+                        <td>Energy efficiency</td>
+                        <td>10%</td>
+                        <td>New model uses 40% less power</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Output:</strong></p>
+            <ul>
+                <li>Replace Now (Score: 92/100)</li>
+                <li>Repair Temporarily (Score: 65/100)</li>
+                <li>Keep Monitoring (Score: 30/100)</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2>Case Studies</h2>
+            <h3>1. St. Mary's Hospital (350 beds)</h3>
+            <p><strong>Challenge:</strong> 40% of infusion pumps past lifespan</p>
+            <p><strong>Premedix Solution:</strong> AI identified 28 pumps for immediate replacement</p>
+            <p><strong>Result:</strong> $210K annual savings + zero pump failures in 18 months</p>
+
+            <h3>2. City Children's Clinic</h3>
+            <p><strong>Challenge:</strong> Frequent stockouts of pediatric vaccines</p>
+            <p><strong>Premedix Solution:</strong> Demand forecasting + auto-replenishment</p>
+            <p><strong>Result:</strong> 99.7% availability, reduced waste by 62%</p>
+        </section>
+
+        <section class="mb-5">
+            <h2>Getting Started</h2>
+            <p><strong>3 Simple Steps:</strong></p>
+            <ol>
+                <li>Discovery Call - We analyze your equipment inventory</li>
+                <li>Pilot Phase - 3-month trial with 5 critical devices</li>
+                <li>Full Rollout - Customized training + 24/7 support</li>
+            </ol>
+            <p>📅 <a href="#">[Book a Demo]</a> | 📞 1-800-PREMEDIX</p>
+        </section>
+
+        <section class="mb-5">
+            <h2>FAQ</h2>
+            <p><strong>Q: How does the AI learn our specific equipment?</strong></p>
+            <p>A: Our models train on your maintenance logs while benchmarking against global data (anonymized).</p>
+            <p><strong>Q: Can we use this for non-medical assets?</strong></p>
+            <p>A: Yes! Many clients track IT devices, furniture, and facility utilities.</p>
+            <p><strong>Q: What if we have outdated equipment without digital records?</strong></p>
+            <p>A: Our team handles manual data entry with OCR scanning of paper logs.</p>
+        </section>
+    </main>
+
+    <footer class="text-center py-4">
+        <p>&copy; 2025 Premedix. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
